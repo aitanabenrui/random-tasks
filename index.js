@@ -41,6 +41,32 @@ function regenerateArray() {
 function addTask(addToEnd) { //función para añadir una tarea al principio o al final. Dependiendo de si addToEnd es true o false.
   const task = generateRandomTask(); //definimos un objeto llamado a la función generateRandomTask
 
+/* `<div class="task"> 
+        <span class="${task.isCompleted ? 'completed' : ''}">${task.text}</span> -
+        <span class="status">${task.isCompleted ? 'completed' : 'pending'}</span>
+      </div>`; */
+
+  const taskNode = document.createElement('div'); //ha creado un div dentro del html
+  taskNode.className = 'task'; //añade una nueva clase al div que acabamos de crear reemplazando las clases anteriores, si se usara classList, no se podrían añadir varias clases a la vez
+
+  //<span class="${task.isCompleted ? 'completed' : ''}">${task.text}</span>
+  const completedNode = document.createElement('span'); //se crea un span
+  completedNode.className = task.isCompleted ? 'completed' : ''; //se crea la clase del span
+  completedNode.innerText = task.text; //es el texto que va entre la etiqueta <span>
+  taskNode.appendChild(completedNode); //deentro del div taskNode se mete el span completedNode
+
+  //espacio entre ambos spans
+  const guion = document.createTextNode(' - ');
+  taskNode.appendChild(guion);
+
+  //<span class="status">${task.isCompleted ? 'completed' : 'pending'}</span>
+  const statusNode = document.createElement('span'); //se crea un span con la calss status
+  statusNode.className = 'status';
+  statusNode.innerText = task.isCompleted ? 'completed' : 'pending'; //se le añade el texto de la etiqueta
+  taskNode.appendChild(statusNode); //este span se añade como hijo dentro del div taskNode
+
+
+
   //definimos una variable que meta la task definida previamente en el html
   const taskHtml = getTaskHtml(task);
     
@@ -48,9 +74,9 @@ function addTask(addToEnd) { //función para añadir una tarea al principio o al
   
   //para que se añada una tarea al principio o al final
   if(addToEnd){
-    tasksNode.innerHTML = tasksNode.innerHTML + taskHtml;
+    tasksNode.appendChild(taskNode); //lo añade al prinicipio de la etiqueta padre
   } else {
-    tasksNode.innerHTML = taskHtml + tasksNode.innerHTML;
+    tasksNode.prepend(taskNode); //para que se añada al final de la etiqueta padre
   };
   
 }
