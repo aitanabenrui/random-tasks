@@ -126,7 +126,7 @@ function createTaskNode(task, addToEnd){
 
 function addTask(addToEnd){
   const task = generateRandomTask();
-  addTask(task, addToEnd); //
+  createTaskNode(task, addToEnd); //cada vez que se apriete el botón add task llamama a createTaskNode, creará una task y añadirá al principio o al final 
 }
 
 function addLast() {}
