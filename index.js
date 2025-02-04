@@ -141,8 +141,11 @@ const taskList = document.querySelector("#tasks");
 
 taskList.addEventListener('click', function(event){ 
   // Verifica que se ha hecho clic en una tarea
+  //si queremos verificar el innerHTML podemos usar:
+  // if (event.target.innerHTML.includes('task')) Cambiamos el contains por el incluides
+
   if(event.target.classList.contains('task')){ //si donde hemos clickado (el div) tiene la clase task
-    // Busca el .status dentro de la tarea clicada
+    // busca el .status dentro de la tarea clicada
     const status = event.target.querySelector('.status');
     
     if (status) { // si el elemento existe
