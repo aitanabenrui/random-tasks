@@ -62,7 +62,7 @@ function createTaskNode(task, addToEnd){
   taskNode.innerHTML = ` 
         <span class="${task.isCompleted ? 'completed' : ''}">${task.text}</span> -
         <span class="status">${task.isCompleted ? 'completed' : 'pending'}</span>
-        <button class="${task.isFav ? 'fav' : ''}">${task.isFav ? '❤' : '💢'}</button>`;
+        <button class="emoji-btn ${task.isFav ? 'fav' : ''}" style="display:none">${task.isFav ? '❤' : '💢'}</button>`;
     
   const tasksNode = document.querySelector('#tasks'); //variable que contiene la parte del html que es un div con el id tasks
   
@@ -72,6 +72,19 @@ function createTaskNode(task, addToEnd){
   } else {
     tasksNode.prepend(taskNode); //para que se añada al inicio de la etiqueta padre si hay mas elementos
   };
+
+  //animación para que se vea el emoji al pasar el mouse
+
+   // Mostrar el botón cuando el mouse entra en la tarea
+  taskNode.addEventListener('mouseenter', () => {
+    favButtonNode.style.display = 'inline-block';
+  });
+
+  // Ocultar el botón cuando el mouse sale de la tarea
+  taskNode.addEventListener('mouseleave', () => {
+    favButtonNode.style.display = 'none';
+  });
+
   
   //hace que solo añada el listener a ese elemento en concreto y no a todos
   /* Vamos a cambiar este código para que se marquen como pendientes o completadas cada vez que clickamos en la tarea 
