@@ -140,7 +140,7 @@ function addLast() {}
 const taskList = document.querySelector("#tasks");
 
 taskList.addEventListener('click', function(event){ 
-  // Verifica que se ha hecho clic en una tarea
+  // verifica que se ha hecho clic en una tarea
   //si queremos verificar el innerHTML podemos usar:
   // if (event.target.innerHTML.includes('task')) Cambiamos el contains por el incluides
 
