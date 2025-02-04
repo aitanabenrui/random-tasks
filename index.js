@@ -9,7 +9,8 @@ function getRandomInt(min, max) {
 function generateRandomTask() { //genera un objeto con una tarea aleatoria 
   return {
     text: `Texto aleatorio número ${getRandomInt(1, 1000)}`,
-    isCompleted: getRandomInt(0, 1) === 1 //isCompleted será true o false dependiendo del numero aleatorio
+    isCompleted: getRandomInt(0, 1) === 1, //isCompleted será true o false dependiendo del numero aleatorio
+    isFav: getRandomInt(0, 1) === 1
   };
 }
 
@@ -60,7 +61,8 @@ function createTaskNode(task, addToEnd){
   //eliminamos el div <div class=task> debido a que este div es el que creamos con createElement y si lo dejamos estaríamos duplicando un div, meteríamos un div dentro de otro con la misma clase "task"
   taskNode.innerHTML = ` 
         <span class="${task.isCompleted ? 'completed' : ''}">${task.text}</span> -
-        <span class="status">${task.isCompleted ? 'completed' : 'pending'}</span>`;
+        <span class="status">${task.isCompleted ? 'completed' : 'pending'}</span>
+        <button class="${task.isFav ? 'fav' : ''}">${task.isFav ? '❤' : '💢'}</button>`;
     
   const tasksNode = document.querySelector('#tasks'); //variable que contiene la parte del html que es un div con el id tasks
   
@@ -72,9 +74,27 @@ function createTaskNode(task, addToEnd){
   };
   
   //hace que solo añada el listener a ese elemento en concreto y no a todos
+  /* Vamos a cambiar este código para que se marquen como pendientes o completadas cada vez que clickamos en la tarea 
   taskNode.addEventListener('click', function (){
-      console.log('hola', task.text);
+      console.log('hola', task.text); */
+
+      //event listener para marcar la tarea como completada si está pendiente y viceversa
+      taskNode.addEventListener('click', function () {
+        const taskTextNode = taskNode.querySelector('span');
+        const isCurrentlyCompleted = taskTextNode.classList.contains('completed');
+        taskTextNode.classList.toggle('completed');
+        taskNode.querySelector('.status').innerText = isCurrentlyCompleted ? 'pending' : 'completed';
       });
+
+      //event listener para cambiar el estado del icono
+      const favButtonNode = taskNode.querySelector('button') //mejor añadir una class al botón y referenciarlo con esa class y no con button
+
+      favButtonNode.addEventListener('click', function(){
+        const isCurrentlyFav = favButtonNode.classList.contains('fav');
+        favButtonNode.classList.toggle('fav'); //se usa para añadir o eliminar de forma dinámica una clase de un elemento. Si el elemneto no tiene la clase se la añade, si ya la tiene se la quita
+        favButtonNode.innerText = isCurrentlyFav ? '💢' : '❤'
+      })
+
 }
 
 // function addTask(addToEnd) { //función para añadir una tarea al principio o al final. Dependiendo de si addToEnd es true o false.
@@ -136,6 +156,8 @@ function addTask(addToEnd){
 
 function addLast() {}
 
+
+/* uso de event delegation para cambiar entre tarea completada o pendiente
 //EVENT DELEGATION-------------------------------------------------------------------
 const taskList = document.querySelector("#tasks");
 
@@ -165,7 +187,7 @@ taskList.addEventListener('click', function(event){
     }
   }
 });
-
+ */
 
 // event listeners para que los botones llamen a las funciones anteriores
 document.querySelector('#regenate').addEventListener('click', () => {
