@@ -57,10 +57,10 @@ function createTaskNode(task, addToEnd){
   const taskNode = document.createElement('div'); //ha creado un div dentro del html
   taskNode.className = 'task'; //añade una nueva clase al div que acabamos de crear reemplazando las clases anteriores, si se usara classList, no se podrían añadir varias clases a la vez
   
-  taskNode.innerHTML = `<div class="task"> 
+  //eliminamos el div <div class=task> debido a que este div es el que creamos con createElement y si lo dejamos estaríamos duplicando un div, meteríamos un div dentro de otro con la misma clase "task"
+  taskNode.innerHTML = ` 
         <span class="${task.isCompleted ? 'completed' : ''}">${task.text}</span> -
-        <span class="status">${task.isCompleted ? 'completed' : 'pending'}</span>
-      </div>`;
+        <span class="status">${task.isCompleted ? 'completed' : 'pending'}</span>`;
     
   const tasksNode = document.querySelector('#tasks'); //variable que contiene la parte del html que es un div con el id tasks
   
@@ -135,6 +135,34 @@ function addTask(addToEnd){
 }
 
 function addLast() {}
+
+//EVENT DELEGATION-------------------------------------------------------------------
+const taskList = document.querySelector("#tasks");
+
+taskList.addEventListener('click', function(event){ 
+  // Verifica que se ha hecho clic en una tarea
+  if(event.target.classList.contains('task')){ //si donde hemos clickado (el div) tiene la clase task
+    // Busca el .status dentro de la tarea clicada
+    const status = event.target.querySelector('.status');
+    
+    if (status) { // si el elemento existe
+      
+      //esta linea de código selecciona el texto "tarea random" de cada div pulsado
+      const taskTextSpan = status.previousElementSibling; //crea la variable taskTextSpan que apunta al elemento que tiene justo antes, es decir el texto de tarea random x
+      
+      if (taskTextSpan) { // verifica que exista un elemento anterior
+        if (status.innerHTML === 'completed') {
+          status.innerHTML = 'pending'; //lo cambia a pendiente
+          taskTextSpan.classList.remove('completed'); //  y quita la clase del span anterior
+        } else { //el status es pending entonces
+          status.innerHTML = 'completed'; //cambia el texto a completed
+          taskTextSpan.classList.add('completed'); // y agrega la clase al span anterior
+        }
+      }
+    }
+  }
+});
+
 
 // event listeners para que los botones llamen a las funciones anteriores
 document.querySelector('#regenate').addEventListener('click', () => {
