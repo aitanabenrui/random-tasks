@@ -176,7 +176,7 @@ function createTaskNode(task, addToEnd){
 function addTask(addToEnd, taskText = null){
 let task
   if(inputText === true){
-    task = { text: taskText, isCompleted: false, isFav: false };
+    task = { text: taskText, isCompleted: false, isFav: false }; //creamos un objeto igual al que se generaría de forma random si no rellenaramos el form
   } else {
   task = generateRandomTask();
     } 
@@ -240,8 +240,8 @@ document.querySelector('#create-task').addEventListener('submit', (event)=>{
   const formData = new FormData(event.target); //form data es un objeto espcial
   const taskText = formData.get('taskText').trim();
   console.log(taskText);
-  if(taskText){
+  if(taskText){ //va a comporbar que si o si tenga texto
     addTask(false, taskText);
   }
- 
+  event.target.reset(); //para que el texto del form se resetee
 })
