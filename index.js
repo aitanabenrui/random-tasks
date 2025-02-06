@@ -76,8 +76,8 @@ function createTaskNode(task, addToEnd){
   //animación para que se vea el emoji al pasar el mouse
 
    // Mostrar el botón cuando el mouse entra en la tarea
-  taskNode.addEventListener('mouseenter', () => {
-    favButtonNode.style.display = 'inline-block';
+  taskNode.addEventListener('mouseenter', () => { // () => { es lo mismo que poner function()=>{}
+    favButtonNode.style.display = ''; //para hacer que sea visible quitándole el none 
   });
 
   // Ocultar el botón cuando el mouse sale de la tarea
