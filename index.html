@@ -15,6 +15,15 @@
       border: 1px solid #ccc;
     }
 
+    .fav-button{
+      display:none;
+    }
+
+/* a todos los hijos del botón */
+    .task:hover .fav-button{
+      display:block;
+    }
+
     .task + .task {
       margin-top: 12px;
     }
