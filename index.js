@@ -242,7 +242,7 @@ document.querySelector('#create-task').addEventListener('submit', (event)=>{
 
   //buena practica poner un name en los formularios para poder guardarlos
   const formData = new FormData(event.target); //form data es un objeto espcial
-  const taskText = formData.get('taskText').trim();
+  const taskText = formData.get('taskText').trim(); //accede al texto del submit
   console.log(taskText);
   if(taskText.length > 0){ //va a comporbar que si o si tenga texto
     addTask(false, taskText);
