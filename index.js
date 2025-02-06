@@ -244,10 +244,11 @@ document.querySelector('#create-task').addEventListener('submit', (event)=>{
   const formData = new FormData(event.target); //form data es un objeto espcial
   const taskText = formData.get('taskText').trim();
   console.log(taskText);
-  if(taskText > 0){ //va a comporbar que si o si tenga texto
+  if(taskText.length > 0){ //va a comporbar que si o si tenga texto
     addTask(false, taskText);
-    document.querySelector("#submit-button").disabled = false;
+    console.log("botón deshabilitado");
   }
+  document.querySelector("#submit-button").disabled = true; //para que una vez se envíe la tarea se deshabilite
   event.target.reset(); //para que el texto del form se resetee
 
 })
@@ -258,7 +259,9 @@ document.querySelector('#create-task').addEventListener('submit', (event)=>{
 
 formInput.addEventListener('input', ()=>{
   //habilita si hay texto y dehabilita si está vacío
+  console.log("Texto en input:", formInput.value); // Verifica el valor del input
   submitButton.disabled = formInput.value.trim() === ""; //se deshabilita si el valor del formInput es una cadena vacía, si no, disabled será false 
+
 });
 
 //formInput es la referencia al campo de entrada del formualrio el cual es un input
