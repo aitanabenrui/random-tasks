@@ -1,7 +1,8 @@
 //definición con variables de elementos del DOM
 
 const formInput = document.querySelector("#form_input");
-let inputText = false
+let inputText = false;
+const submitButton = document.querySelector("#submit-button");
 
 
 
@@ -177,6 +178,7 @@ function addTask(addToEnd, taskText = null){
 let task
   if(inputText === true){
     task = { text: taskText, isCompleted: false, isFav: false }; //creamos un objeto igual al que se generaría de forma random si no rellenaramos el form
+    
   } else {
   task = generateRandomTask();
     } 
@@ -231,6 +233,8 @@ document.querySelector('#add-last').addEventListener('click', () => {
   addTask(true);
 });
 
+//listener para submitear una tarea que se haya escrito en el form
+
 document.querySelector('#create-task').addEventListener('submit', (event)=>{
   event.preventDefault();   //todos los formularios recargan la página, con esto lo evitamos
   console.log(event);
@@ -240,8 +244,31 @@ document.querySelector('#create-task').addEventListener('submit', (event)=>{
   const formData = new FormData(event.target); //form data es un objeto espcial
   const taskText = formData.get('taskText').trim();
   console.log(taskText);
-  if(taskText){ //va a comporbar que si o si tenga texto
+  if(taskText > 0){ //va a comporbar que si o si tenga texto
     addTask(false, taskText);
+    document.querySelector("#submit-button").disabled = false;
   }
   event.target.reset(); //para que el texto del form se resetee
+
 })
+
+ //listener para que cuando se escriba el imput el botón de intro se habilite
+//recordemos que formInput es una variable que guarda el objeto input del DOM
+//y que submitButton es el elemento del DOM botón para enviar el texto del input
+
+formInput.addEventListener('input', ()=>{
+  //habilita si hay texto y dehabilita si está vacío
+  submitButton.disabled = formInput.value.trim() === ""; //se deshabilita si el valor del formInput es una cadena vacía, si no, disabled será false 
+});
+
+//formInput es la referencia al campo de entrada del formualrio el cual es un input
+//.valu es una propiedad que obtine el valor actual del campo de entrada
+//si el usuario ha escrito aldo, .value devolverá ese texto, si está vacío devolvrá una cadena vacía
+
+//formInput.value.trim() === "": compara si el valor del campo de entrada (después de eliminar los espacios) es una cadena vacía ("").
+//Si el campo está vacío o solo tiene espacios, esta comparación será true.
+//Si el campo tiene texto, la comparación será false.
+
+//submitButton.disabled = ...: La propiedad .disabled del botón es un booleano (true o false).
+//Si la comparación anterior es true (es decir, el campo está vacío), entonces el botón se deshabilita (disabled = true).
+//Si la comparación es false (es decir, el campo tiene texto), el botón se habilita (disabled = false).
