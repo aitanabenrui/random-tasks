@@ -100,15 +100,18 @@ function createTaskNode(task, addToEnd){
       });
 
       //event listener para cambiar el estado del icono
-      const favButtonNode = taskNode.querySelector('button') //mejor añadir una class al botón y referenciarlo con esa class y no con button
+      const favButtonNode = taskNode.querySelector('button'); //mejor añadir una class al botón y referenciarlo con esa class y no con button
 
-      favButtonNode.addEventListener('click', function(){
+      favButtonNode.addEventListener('click', function(event){
+        event.stopPropagation(); //con stopPropagation evitemos que al marcarn la tarea como favorita no marquemos la tarea como completada o pendiente, evitamos la propagación al contenedor padre
         const isCurrentlyFav = favButtonNode.classList.contains('fav');
         favButtonNode.classList.toggle('fav'); //se usa para añadir o eliminar de forma dinámica una clase de un elemento. Si el elemneto no tiene la clase se la añade, si ya la tiene se la quita
         favButtonNode.innerText = isCurrentlyFav ? '💢' : '❤'
       })
 
 }
+
+//EVENT PROPAGATION: las funciones se ejecutan de abajo a arriba.
 
 // function addTask(addToEnd) { //función para añadir una tarea al principio o al final. Dependiendo de si addToEnd es true o false.
 //   const task = generateRandomTask(); //definimos un objeto llamado a la función generateRandomTask
