@@ -73,19 +73,20 @@ function createTaskNode(task, addToEnd){
     tasksNode.prepend(taskNode); //para que se añada al inicio de la etiqueta padre si hay mas elementos
   };
 
-  //animación para que se vea el emoji al pasar el mouse
+  //animación para que se vea el emoji al pasar el mouse-------------------------------------------------------------------------------------
 
    // Mostrar el botón cuando el mouse entra en la tarea
-  taskNode.addEventListener('mouseenter', () => { // () => { es lo mismo que poner function()=>{}
+  /* taskNode.addEventListener('mouseenter', () => { // () => { es lo mismo que poner function()=>{}
     favButtonNode.style.display = ''; //para hacer que sea visible quitándole el none 
   });
 
   // Ocultar el botón cuando el mouse sale de la tarea
   taskNode.addEventListener('mouseleave', () => {
     favButtonNode.style.display = 'none';
-  });
+  }); */
 
-  
+//------------------------------------------------------------------------------------------------------------------------------------------------------------
+
   //hace que solo añada el listener a ese elemento en concreto y no a todos
   /* Vamos a cambiar este código para que se marquen como pendientes o completadas cada vez que clickamos en la tarea 
   taskNode.addEventListener('click', function (){
