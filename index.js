@@ -1,3 +1,10 @@
+//definición con variables de elementos del DOM
+
+const formInput = document.querySelector("#form_input");
+
+
+
+
 //función que permite obtener un número aleatorio en un rango específico
 function getRandomInt(min, max) {
   min = Math.ceil(min);
@@ -218,3 +225,8 @@ document.querySelector('#add-first').addEventListener('click', () => {
 document.querySelector('#add-last').addEventListener('click', () => {
   addTask(true);
 });
+
+document.querySelector('#create-task').addEventListener('submit', (event)=>{
+  event.preventDefault();   //todos los formularios recargan la página, con esto lo evitamos
+  console.log(event);
+})
