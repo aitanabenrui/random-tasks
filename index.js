@@ -1,7 +1,7 @@
 //definición con variables de elementos del DOM
 
 const formInput = document.querySelector("#form_input");
-
+let inputText = false
 
 
 
@@ -173,8 +173,13 @@ function createTaskNode(task, addToEnd){
 //       });
 //     };
 
-function addTask(addToEnd){
-  const task = generateRandomTask();
+function addTask(addToEnd, taskText = null){
+let task
+  if(inputText === true){
+    task = { text: taskText, isCompleted: false, isFav: false };
+  } else {
+  task = generateRandomTask();
+    } 
   createTaskNode(task, addToEnd); //cada vez que se apriete el botón add task llamama a createTaskNode, creará una task y añadirá al principio o al final 
 }
 
@@ -229,4 +234,14 @@ document.querySelector('#add-last').addEventListener('click', () => {
 document.querySelector('#create-task').addEventListener('submit', (event)=>{
   event.preventDefault();   //todos los formularios recargan la página, con esto lo evitamos
   console.log(event);
+  inputText = true
+
+  //buena practica poner un name en los formularios para poder guardarlos
+  const formData = new FormData(event.target); //form data es un objeto espcial
+  const taskText = formData.get('taskText').trim();
+  console.log(taskText);
+  if(taskText){
+    addTask(false, taskText);
+  }
+ 
 })
